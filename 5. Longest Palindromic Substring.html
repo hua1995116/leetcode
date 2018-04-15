@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  Given a string s, find the longest palindromic substring in s. You may assume that the maximum length of s is 1000.
+
+  Example 1:
+  
+  Input: "babad"
+  Output: "bab"
+  Note: "aba" is also a valid answer.
+  Example 2:
+  
+  Input: "cbbd"
+  Output: "bb"
+<script>
+/**
+ * @param {string} s
+ * @return {string}
+ */
+var longestPalindrome = function(s) {
+    var len = [];
+    var max = 0;
+    var targetLen = [];
+    var targetmax = 0;
+    var arr = s;
+    if(arr.length === 1) {
+      return arr;
+    }
+    for(var i = 0, length = arr.length; i < length; i++) {
+      for(var j = 0; j < i + 1; j ++) {
+        if(arr[i - j] !== arr[i + 1 + j]) {
+          break;
+        } else {
+          targetmax += 2;
+          targetLen = [i - j, i + 1 + j];
+        }
+      }
+      if(targetmax > max) {
+        len = targetLen;
+        max = targetmax;
+      }
+      targetmax = 1;
+      for(var j = 0; j < i; j++) {
+        if(arr[i -1 -j] !== arr[i + 1+j]) {
+          break;
+        } else {
+          targetmax += 2;
+          targetLen = [i - 1 - j, i + 1 + j];
+        }
+      }
+      if(targetmax > max) {
+        len = targetLen;
+        max = targetmax;
+      }
+      targetmax = 0;
+    }
+    if(max === 1) {
+      return arr[0];
+    }
+    return arr.slice(len[0], len[1] + 1);
+};
+
+console.log(longestPalindrome("abcda"));
+</script>
+</body>
+</html>

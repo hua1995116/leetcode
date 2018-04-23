@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order and each of their nodes contain a single digit. Add the two numbers and return it as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+Example
+
+Input: (2 -> 4 -> 3) + (5 -> 6 -> 4)
+Output: 7 -> 0 -> 8
+Explanation: 342 + 465 = 807.
+
+给定两个非空链表来代表两个非负整数，位数按照逆序方式存储，它们的每个节点只存储单个数字。将这两数相加会返回一个新的链表。
+
+你可以假设除了数字 0 之外，这两个数字都不会以零开头。
+
+示例：
+
+输入：(2 -> 4 -> 3) + (5 -> 6 -> 4)
+输出：7 -> 0 -> 8
+原因：342 + 465 = 807
+<script>
+var a = {
+    val: 2,
+    next: {
+        val: 4, 
+        next: {
+            val: 3,
+            next: null
+        }
+    }
+}
+var b = {
+    val: 5,
+    next: {
+        val: 6, 
+        next: {
+            val: 4,
+            next: null
+        }
+    }
+}
+var list = function (val){
+    this.val = val;
+    this.next = null; 
+}
+function addTwoNumbers(list1, list2) {
+    var li1 = list1, li2 = list2;
+    var sum = li1.val + li2.val;
+    var arr = [];
+    var index = 0;
+    // var li = new list(sum % 10);
+    arr.push(sum % 10);
+    if(sum >= 10) {
+        index = 1;
+    }
+    // var nli = li;
+    while(li1.next || li2.next || index) {
+        var val1 = li1.next ? li1.next.val : 0;
+        var val2 = li2.next ? li2.next.val : 0;
+        // var child = new list((val1 + val2 + index)%10);
+        // nli.next = child;
+        // nli = child;
+        arr.push((val1 + val2 + index)%10);
+        if(val1 + val2 + index >= 10) {
+            index = 1;
+        } else {
+            index = 0;
+        }
+        if(li1.next) li1 = li1.next;
+        if(li2.next) li2 = li2.next;
+    }
+    return arr;
+}
+
+console.log(addTwoNumbers(a, b));
+</script>
+</body>
+</html>

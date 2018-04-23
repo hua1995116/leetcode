@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    Given a string, find the length of the longest substring without repeating characters.
+
+    Examples:
+    
+    Given "abcabcbb", the answer is "abc", which the length is 3.
+    
+    Given "bbbbb", the answer is "b", with the length of 1.
+    
+    Given "pwwkew", the answer is "wke", with the length of 3. Note that the answer must be a substring, "pwke" is a subsequence and not a substring.
+<script>
+/**
+ * @param {string} s
+ * @return {number}
+ */
+//  var lengthOfLongestSubstring = function(s) {
+//     var str = '';
+//     if(s.length === 0) {
+//         return 0;
+//     }
+//     if(s.length < 2) {
+//         return 1;
+//     }
+//     str = '';
+//     var length = 0;
+//     for(var i = 0, len = s.length; i < len; i++) {
+//         str = '';
+//         for(var j = i; j < s.length; j++) {
+//             if(str.indexOf(s[j]) === -1) {
+//                 str+=s[j];
+//             } else {
+//                 length = str.length > length ? str.length : length;
+//                 str = s[j];
+//             }
+//             if(j+1 === len) {
+//                 length = str.length > length ? str.length : length;
+//             }
+//         }
+//     }
+//     return length;
+// };
+
+
+function lengthOfLongestSubstring(s) {
+    const map = {};
+    var left = -1;
+    
+    return s.split('').reduce((max, v, i) => {
+        debugger;
+        left = map[v] >= left ? map[v] : left;
+        map[v] = i;
+        return Math.max(max, i - left);
+    }, 0);
+}
+// var lengthOfLongestSubstring = function(s) {
+//     var maxLen,
+//         l,
+//         r;
+        
+//     if (s.length < 2) {
+//         return s.length;
+//     }
+    
+//     maxLen = 0;
+    
+//     for (l = 0, r = 1; r < s.length; r++) {
+//         i = s.lastIndexOf(s[r], r-1);
+//         if (i >= 0) {
+//             maxLen = Math.max(maxLen, r - l);
+//             l = Math.max(l, i + 1);
+//         }
+//     }
+//     return Math.max(maxLen, r - l);
+// };
+// 思路，减去之前重复的点。
+console.log(lengthOfLongestSubstring("asjrgapa"))
+</script>
+</body>
+</html>

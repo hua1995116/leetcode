@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<code>
+The string "PAYPALISHIRING" is written in a zigzag pattern on a given number of rows like this: (you may want to display this pattern in a fixed font for better legibility)
+
+P   A   H   N
+A P L S I I G
+Y   I   R
+And then read line by line: "PAHNAPLSIIGYIR"
+
+Write the code that will take a string and make this conversion given a number of rows:
+
+string convert(string s, int numRows);
+Example 1:
+
+Input: s = "PAYPALISHIRING", numRows = 3
+Output: "PAHNAPLSIIGYIR"
+Example 2:
+
+Input: s = "PAYPALISHIRING", numRows = 4
+Output: "PINALSIGYAHRPI"
+Explanation:
+
+P     I    N
+A   L S  I G
+Y A   H R
+P     I
+
+</code>
+<script>
+/**
+ * @param {string} s
+ * @param {number} numRows
+ * @return {string}
+ */
+ var convert = function(s, numRows) {
+    var bigArr = [];
+    var length = s.length;
+    var row = 1;
+    var initA = [];
+    var floor = 1;
+    for(var i = 0; i < length; i++) {
+        // debugger;
+        if(floor === 1) {
+            initA.push(s[i]);
+            row ++;
+            if(row === numRows + 1) {
+                bigArr.push(initA);
+                initA = [];
+                row = 1;
+                floor ++;
+            }
+        } else {
+            var beforeFloor = numRows - floor;
+            if(beforeFloor === 0) {
+                i--;
+                floor = 1;
+                continue;
+            }
+            var afterFloor = numRows - beforeFloor - 1;
+            bigArr.push(genArr(beforeFloor, s[i], afterFloor));
+            floor ++;
+            if(floor === numRows) {
+                floor = 1;
+            }
+        }
+
+    }
+    if(initA.length) {
+        bigArr.push(initA);
+    }
+    console.log(bigArr)
+    var str = '';
+
+    for(var i = 0 ;i < numRows; i++) {
+        for(var j = 0; j < bigArr.length; j ++) {
+            if(bigArr[j][i]) {
+                str += bigArr[j][i];
+            }
+        }
+    }
+    console.log(str);
+
+    return str;
+};
+
+function genArr(Bnumber, data, Anumber) {
+    var nArr = [];
+    var i = 0;
+    while(i < Bnumber) {
+        nArr = nArr.concat(0);
+        i++;
+    }
+    nArr = nArr.concat(data);
+    var j = 0;
+    while(j < Anumber) {
+        nArr = nArr.concat(0);
+        j++
+    }
+    return nArr;
+}
+
+convert('ABCD', 2)
+
+</script>
+</body>
+</html>

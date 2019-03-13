@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+
+Note:
+
+The solution set must not contain duplicate triplets.
+
+Example:
+
+Given array nums = [-1, 0, 1, 2, -1, -4],
+
+A solution set is:
+[
+  [-1, 0, 1],
+  [-1, -1, 2]
+]
+<script>
+/**
+ * @param {number[]} nums
+ * @return {number[][]}
+ */
+var threeSum = function(nums) {
+    var arr = [];
+    if(nums.length<3) {
+        return arr;
+    }
+    nums = nums.sort(function(a,b) {
+        return a - b;
+    });
+    for(var i = 0; i < nums.length - 2; i ++) {
+        if(nums[i - 1] !== undefined && nums[i - 1] === nums[i]) {
+            continue;
+        }
+        var m = i + 1;
+        var n = nums.length - 1;
+        while(m < n) {
+            const sum = nums[i] + nums[n] + nums[m];
+            if(sum === 0) {
+                arr.push([nums[i], nums[n], nums[m]]);
+                while(m < n && nums[m] === nums[m + 1]) {
+                    m++;
+                }
+                while(m < n && nums[n] === nums[n - 1]) {
+                    n--;
+                } 
+                m++;
+                n--;
+            } else if (sum > 0) {
+                n--;
+            } else {
+                m ++;
+            }
+        }
+    }
+    return arr;
+};   
+console.log(threeSum([0,0,0,0]));
+</script>
+</body>
+
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
+
+A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
+<img src="http://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Telephone-keypad2.svg/200px-Telephone-keypad2.svg.png" alt="">
+<script>
+/**
+ * @param {string} digits
+ * @return {string[]}
+ */
+ var letterCombinations = function(digits) {
+    if(!digits.length) {
+        return [];
+    }
+    var digitsObj = {
+        2: 'abc',
+        3: 'def',
+        4: 'ghi',
+        5: 'jkl',
+        6: 'mno',
+        7: 'pqrs',
+        8: 'tuv',
+        9: 'wxyz',
+    }
+    var res = [""];
+    for(var i = 0; i < digits.length; i++) {
+        var t = [];
+        var str = digitsObj[digits[i]];
+        for(var j = 0; j < str.length; j++) {
+            for(var k in res) {
+                t.push(res[k] + str[j]);
+            }   
+        }
+        res = t;
+    }
+    return res;
+};
+
+console.log(letterCombinations("23456"));
+</script>
+</body>
+
+</html>

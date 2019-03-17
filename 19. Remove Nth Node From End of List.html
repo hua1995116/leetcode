@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    Given a linked list, remove the n-th node from the end of list and return its head.
+
+    Example:
+    
+    Given linked list: 1->2->3->4->5, and n = 2.
+    
+    After removing the second node from the end, the linked list becomes 1->2->3->5.
+    Note:
+    
+    Given n will always be valid.
+    
+    Follow up:
+    
+    Could you do this in one pass?
+<script>
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} n
+ * @return {ListNode}
+ */
+ var removeNthFromEnd = function(head, n) {
+    var arr = [];
+    var temp = head;
+    while(temp && temp.val!== undefined) {
+        arr.push(temp);
+        temp = temp.next;
+    }
+    var length = arr.length;
+    const beforeNode = arr[length - n - 1];
+    const nextNode = arr[length - n + 1];
+    if(!beforeNode) {
+        if(!nextNode) {
+            return null;
+        }
+        return nextNode;
+    } else {
+        beforeNode.next = nextNode;
+    }
+    return head;
+};
+
+function initList (list) {
+    var head = {};
+    var temp = head;
+    for(var i = 0; i < list.length; i++) {
+        temp.val = list[i];
+        temp.next = {};
+        temp = temp.next;
+    }
+
+    return head;
+}
+
+function main() {
+    const list = [3,7,9,3,5,8,0];
+    const head = initList(list);
+    console.log(removeNthFromEnd(head, 1));
+}
+
+main();
+
+</script>
+</body>
+
+</html>
